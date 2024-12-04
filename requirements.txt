@@ -1,0 +1,12 @@
+toml
+tqdm
+pydub
+jinja2
+pillow
+requests
+boto3
+arxiv
+google-generativeai
+beautifulsoup4
+pdf2image
+paperswithcode-client
