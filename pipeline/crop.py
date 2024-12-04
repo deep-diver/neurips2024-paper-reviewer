@@ -1,12 +1,11 @@
 import glob
 import asyncio
-import operator
 from tqdm import tqdm
-from functools import reduce
 
 from pipeline.crop_gemini import crop_figures as crop_figures_gemini
 from pipeline.crop_gemini import extract_tables as extract_tables_gemini
 from pipeline.crop_upstage import crop_figures as crop_figures_upstage
+from pipeline.crop_mineru import crop_media as crop_media_mineru
 from pipeline.utils import UploadedFiles
 
 async def gemini_process_image(i, image_path, root_path, pbar, media_type, correct_examples, wrong_examples):
@@ -57,7 +56,7 @@ async def process_image_upstage(i, image_path, root_path, pbar):
 
     return figure_paths, chart_paths, table_paths
 
-async def crop_figures(image_paths, root_path, use_upstage, workers):
+async def crop_figures(image_paths, root_path, use_upstage, use_mineru, workers, pdf_path=None):
     all_figure_paths = []
     all_chart_paths = []
     all_table_paths = []
@@ -82,6 +81,10 @@ async def crop_figures(image_paths, root_path, use_upstage, workers):
             all_table_paths.extend(table_paths)
 
         all_figure_paths = all_figure_paths + all_chart_paths
+
+    elif use_mineru:
+        extracted_info = crop_media_mineru(pdf_path, root_path)
+        pass
 
     else:
         correct_example_paths = glob.glob("assets/rect_example*.png")

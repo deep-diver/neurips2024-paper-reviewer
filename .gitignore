@@ -1,3 +1,4 @@
+*.pdf
 *.py.swp
 24*.*/
 articles/

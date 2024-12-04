@@ -6,6 +6,7 @@ pillow
 requests
 boto3
 arxiv
+openreview-py
 google-generativeai
 beautifulsoup4
 pdf2image
